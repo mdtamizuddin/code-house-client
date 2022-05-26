@@ -2,58 +2,73 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import auth from '../Firebase/firebase.init';
 import Social from './Social'
-import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { createUserWithEmailAndPassword  , updateProfile} from "firebase/auth";
 import { useForm } from 'react-hook-form';
 import Loading from '../Loading/Loading';
 
-const Register = () => {    
+const Register = () => {
     const navigate = useNavigate()
-    const [
-        createUserWithEmailAndPassword,
-        user,
-        loading,
-        error,
-    ] = useCreateUserWithEmailAndPassword(auth);
-    const [updateProfile, updating] = useUpdateProfile(auth);
     const { register, formState: { errors }, reset, handleSubmit } = useForm();
-
+    const [loading , setLoading] = useState(false)
+    const [error , setError] = useState(false)
     const onSubmit = async (data) => {
-      
+        setLoading(true)
         const formData = new FormData();
         formData.append('image', data.image[0]);
 
-        const  url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_IMAGEBB_KEY}`
+        const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_IMAGEBB_KEY}`
         const displayName = data.name
         const email = data.email
         const password = data.password
-       
-        fetch(url ,{
+
+        fetch(url, {
             method: "POST",
-            body : formData
+            body: formData
         })
-        .then(res => res.json())
-        .then(async (result) => {
-            const photoURL = result.data.url
-            await createUserWithEmailAndPassword(email, password)
-            await updateProfile({ displayName , photoURL })
-           
-            fetch(`https://code-house420.herokuapp.com/user/${email}` ,{
-                method: "put",
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body : JSON.stringify({displayName , email , 
-                photoURL})
-            })
             .then(res => res.json())
-            .then(json => {
-                localStorage.setItem('accessToken' , json.accessToken)
-                reset()
-                navigate('/')
+            .then((result) => {
+                const photoURL = result.data.url
+                createUserWithEmailAndPassword(auth, email, password)
+                    .then((userCredential) => {
+                        // Signed in 
+                        const user = userCredential.user;
+                        fetch(`https://code-house420.herokuapp.com/users/${user.email}`, {
+                            method: "put",
+                            headers: {
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                               name: displayName, email,
+                                photoURL
+                            })
+                        })
+                            .then(res => res.json())
+                            .then(json => {
+                                localStorage.setItem('accessToken', json.token)
+                                reset()
+                                navigate('/')
+                                setLoading(false)
+                                updateProfile(auth.currentUser, {
+                                    displayName , photoURL
+                                  }).then(() => {
+                                    // Profile updated!
+                                    // ...
+                                  }).catch((error) => {
+                                    // An error occurred
+                                    // ...
+                                  });
+                            })
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        setError(errorCode)
+                        setLoading(false)
+                    });
+
+               
             })
-        })
     };
-    if (loading || updating) {
+    if (loading) {
         return <Loading />
     }
     return (
@@ -103,14 +118,14 @@ const Register = () => {
                                 <p className='text-red-500 mt-2 ml-2'>{errors.image?.type === 'required' && "Your Image"} </p>
                             </div>
 
-                            <p className='text-red-500 mt-3'>{error?.code}</p>
+                            <p className='text-red-500 mt-3'>{error}</p>
                             <div className="form-control mt-6">
                                 <button type='submit' className="btn btn-primary">Register</button>
                             </div>
                             <p className='mt-3'>Alrady user
                                 <Link to='/login' className="ml-3 text-blue-600 link link-hover">Login</Link>
                             </p>
-                            
+
                         </form>
                         <Social />
                     </div>

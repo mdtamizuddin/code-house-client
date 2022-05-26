@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import auth from '../Firebase/firebase.init';
 import Loading from '../Loading/Loading';
@@ -8,23 +7,22 @@ const Social = () => {
   const navigate = useNavigate()
   const [loading ,setLoading] = useState(false)
 
-
   const signIn = async () => {
     setLoading(true)
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
     .then((result) => {
       const user = result.user;
-      fetch(`https://code-house420.herokuapp.com/user/${user.email}`, {
+      fetch(`https://code-house420.herokuapp.com/users/${user.email}`, {
         method: "put",
         headers: {
           'content-type': 'application/json'
         },
-        body: JSON.stringify({ displayName: user.displayName, email: user.email, photoURL: user.photoURL })
+        body: JSON.stringify({ name: user.displayName, email: user.email, photoURL: user.photoURL })
       })
         .then(res => res.json())
         .then(json => {
-          localStorage.setItem('accessToken', json.accessToken)
+          localStorage.setItem('accessToken', json.token)
           navigate('/')
           setLoading(false)
         })

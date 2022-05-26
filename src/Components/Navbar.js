@@ -103,7 +103,7 @@ const Navigations = () => {
                     <li>
                         <Link to='/node'>Express</Link>
                         <Link to='/node/mongodb'>Mongodb</Link>
-                        <Link to='/node/jwt'>JWT</Link>
+                        <Link to='/node/mongoose'>Mongoose</Link>
                         <Link to='/node/nodemailer'>Node Mailer</Link>
                     </li>
 
@@ -112,6 +112,7 @@ const Navigations = () => {
             <li className='mx-2'><NavLink to='/javascript'>Javascript</NavLink></li>
             <li className='mx-2'><NavLink to='/html'>Html</NavLink></li>
             <li className='mx-2'><NavLink to='/css'>Css</NavLink></li>
+            <li className='mx-2'><NavLink to='/codemirroe'>Code Mirror</NavLink></li>
             {user && <li className='mx-2'><NavLink to='/feedback'>FeedBack</NavLink></li>}
             <li className='mx-2'><NavLink to='/blogs'>Blogs</NavLink></li>
         </>

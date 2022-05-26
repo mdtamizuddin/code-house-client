@@ -4,7 +4,6 @@ import Home from './Components/Home/Home';
 import Navbar from './Components/Navbar';
 import Mongodb from './Components/Nodejs/Mongodb';
 import NodeJs from './Components/Nodejs/NodeJs';
-import NodeJWT from './Components/Nodejs/NodeJWT';
 import ReactJs from './Components/React/ReactJs';
 import TailwindReact from './Components/React/Tailwind/TailwindReact';
 import Nodemailer from './Components/Nodejs/Nodemailer';
@@ -18,39 +17,43 @@ import FullView from './Components/React/Tailwind/FullView';
 import Feedback from './Components/Feedback/Feedback';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Javascript from './Components/Javascript/Javascript';
+import Mongoose from './Components/Nodejs/Mongoose';
+import CodemirrorView from './Components/Codemirror/Codemirror';
 function App() {
-  const [user , loading] = useAuthState(auth)
+  const [user, loading] = useAuthState(auth)
   if (loading) {
     return <Loading />
   }
   return (
     <div className="">
       <Navbar />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='*' element={<h1 className='text-5xl text-center mt-20'>On Development ....</h1>} />
+        <Route path='/react' >
+          <Route index element={<ReactJs />} />
+          <Route path='tailwind' element={<TailwindReact />} />
+        </Route>
 
-     <Routes>
-       <Route path='/' element={ <Home />}/>
-       <Route path='/login' element={ <Login />}/>
-       <Route path='/register' element={ <Register />}/>
-       <Route path='*' element={<h1 className='text-5xl text-center mt-20'>On Development ....</h1>}/>
-       <Route path='/react' >
-         <Route index element={ <ReactJs />}/>
-         <Route path='tailwind' element={<TailwindReact />}/>
-       </Route>
+        <Route path='tailwind/rady-conponent'>
+          <Route index element={<TailwindComponent />} />
+          <Route path='component/:id' element={<FullView />} />
+        </Route>
 
-       <Route path='tailwind/rady-conponent'>
-         <Route index  element={<TailwindComponent />}/>
-         <Route path='component/:id' element={<FullView />}/>
-       </Route>
-   
-       <Route path='/node'>
-         <Route index  element={ <NodeJs />}/>
-         <Route path='mongodb' element={<Mongodb />}/>
-         <Route path='jwt' element={<NodeJWT />}/>
-         <Route path='nodemailer' element={<Nodemailer />}/>
-       </Route>
-       <Route path='feedback' element={<Feedback />}/>
-     </Routes>
-     <ToastContainer />
+        <Route path='/node'>
+          <Route index element={<NodeJs />} />
+          <Route path='mongodb' element={<Mongodb />} />
+          <Route path='mongoose' element={<Mongoose />} />
+          <Route path='nodemailer' element={<Nodemailer />} />
+        </Route>
+        <Route path='/feedback' element={<Feedback />} />
+        <Route path='/codemirroe' element={<CodemirrorView />} />
+        <Route path='/javascript' element={<Javascript />} />
+      </Routes>
+      <ToastContainer />
     </div>
   );
 }

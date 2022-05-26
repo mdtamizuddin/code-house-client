@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import useDate from '../../Hook/useDate'
 const Home = () => {
     return (
         <div>
@@ -11,6 +12,7 @@ const Home = () => {
 export default Home
 
 const Header = () => {
+
     return (
         <div  className="hero min-h-screen bg-slate-800">
             <div className="hero-content text-center">
@@ -30,8 +32,8 @@ const Header = () => {
                             <li><Link className='btn w-full mt-3' to='/react'>React js</Link></li>
                             <li><Link className='btn w-full mt-3' to='/tailwind/rady-conponent'>React Component</Link></li>
                             <li><Link className='btn w-full mt-3' to='/node'>Node js</Link></li>
-                            <li><Link className='btn w-full mt-3' to='/node/jwt'>JWT -jsonwebtoken</Link></li>
-                            <li><Link className='btn w-full mt-3' to='/node/mongodb'>Node With MongoDb</Link></li>
+                            <li><Link className='btn w-full mt-3' to='/node/mongoose'>Mongoose</Link></li>
+                            <li><Link className='btn w-full mt-3' to='/node/mongodb'>MongoDb</Link></li>
                             <li><Link className='btn w-full mt-3' to='/jsvascript'>Javascript </Link></li>
                             <li><Link className='btn w-full mt-3' to='/html'>Html</Link></li>
                             <li><Link className='btn w-full mt-3' to='/css'>Css</Link></li>

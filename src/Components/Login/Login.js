@@ -1,6 +1,6 @@
 
-import React from 'react'
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom'
 import auth from '../Firebase/firebase.init';
@@ -9,30 +9,37 @@ import Social from './Social'
 
 const Login = () => {
     const navigate = useNavigate()
-    const [
-        signInWithEmailAndPassword,
-        user,
-        loading,
-        error,
-    ] = useSignInWithEmailAndPassword(auth);
+    const [error, setError] = useState()
     const { reset, register, formState: { errors }, handleSubmit } = useForm();
-
-    const onSubmit = async (data) => {
-        await signInWithEmailAndPassword(data.email, data.password)
-
-         await fetch(`https://code-house420.herokuapp.com/user/${user.email}`, {
-            method: "put",
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({ displayName: user.displayName, email: user.email, photoURL: user.photoURL })
-        })
-            .then(res => res.json())
-            .then(json => {
-                reset()
-                localStorage.setItem('accessToken',json.accessToken)
-                navigate('/')
+    const [loading , setLoading] = useState(false)
+    const onSubmit = (data) => {
+        setLoading(true)
+        signInWithEmailAndPassword(auth, data.email, data.password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                fetch(`https://code-house420.herokuapp.com/users/${user.email}`, {
+                    method: "put",
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({ name: user.displayName, email: user.email, photoURL: user.photoURL })
+                })
+                    .then(res => res.json())
+                    .then(json => {
+                        reset()
+                        localStorage.setItem('accessToken', json.token)
+                        navigate('/')
+                        setLoading(false)
+                    })
             })
+            .catch((error) => {
+                const errorCode = error.code;
+                setError(errorCode)
+                setLoading(false)
+            });
+
+
     }
 
     if (loading) {
@@ -64,14 +71,14 @@ const Login = () => {
                                     className="input input-bordered" />
                                 <p className='text-red-500 mt-2 ml-2'>{errors.password?.type === 'required' && "Password Required"} </p>
                             </div>
-                            <p className='text-red-500'>{error?.code}</p>
+                            <p className='text-red-500'>{error}</p>
                             <div className="form-control mt-6">
                                 <button type='submit' className="btn btn-primary">Login</button>
                             </div>
                             <p className='mt-3'> Not a user
                                 <Link to='/register' className="ml-3 text-blue-600 link link-hover">Sign Up</Link>
                             </p>
-                            
+
                         </form>
                         <Social />
                     </div>

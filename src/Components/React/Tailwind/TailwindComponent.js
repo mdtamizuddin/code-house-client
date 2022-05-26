@@ -8,7 +8,7 @@ import AddComponent from './AddComponent'
 
 const TailwindComponent = () => {
   const [open, setOpen] = useState(false)
-  const url = 'https://code-house420.herokuapp.com/react-component'
+  const url = 'https://code-house420.herokuapp.com/reactComponent/'
   const [user , loading] = useAuthState(auth)
   const { isLoading, data } = useQuery(['react-components'], () =>
     fetch(url).then(res =>
@@ -35,7 +35,7 @@ const TailwindComponent = () => {
               <div className='flex'>
               <div className="avatar">
                 <div className="w-16 rounded-full">
-                  <img src={component.avater} />
+                  <img src={component.avater} alt='avater'/>
                 </div>
               </div>
               <div className='ml-5 p-2'>

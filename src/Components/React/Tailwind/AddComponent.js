@@ -1,11 +1,13 @@
 import React from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import useDate from '../../../Hook/useDate';
 import auth from '../../Firebase/firebase.init';
+import Loading from '../../Loading/Loading';
 
 const AddComponent = ({open , setOpen}) => {
     const [user, loading] = useAuthState(auth)
+    const[dateToday] = useDate()
     const { register, formState: { errors }, handleSubmit } = useForm();
     const onSubmit = data => {
         const compName = data.name 
@@ -25,8 +27,8 @@ const AddComponent = ({open , setOpen}) => {
         .then(res => res.json())
         .then(async (result) => {
             const image = result.data.url
-            const myData = { type : "tailwind",compName , code , image , userName , email , avater}
-            fetch('https://code-house420.herokuapp.com/react-component', {
+            const myData = { type : "tailwind",compName , code , image , userName , email , avater , dateToday}
+            fetch('https://code-house420.herokuapp.com/reactComponent/', {
                 method: 'post',
                 headers :{
                     'content-type': 'application/json',
@@ -37,13 +39,11 @@ const AddComponent = ({open , setOpen}) => {
             .then(res => res.json())
             .then(json => console.log(json))
         }
-        )
-
-
-
-       
+        )       
     }
-
+    if (loading) {
+        return <Loading />
+    }
     return (
         <div className={`${open? 'flex' : 'hidden'} justify-center items-center h-screen w-screen absolute z-10 top-20  bg-slate-200`}>
             <div className="card w-full max-w-3xl bg-base-100 shadow-xl">
