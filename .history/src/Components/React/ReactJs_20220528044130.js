@@ -24,7 +24,7 @@ const ReactJs = () => {
   }
 
   return (
-    <div className='container mx-auto'>
+    <div>
       {
         currentUser.role === "admin" &&
         <CodeAddingForm refetch={refetch} />
@@ -79,9 +79,6 @@ const CodeAddingForm = ({ refetch }) => {
         e.target.reset()
         toast.success('Code Added')
         refetch()
-      }
-      else{
-        toast.error('There is a problem')
       }
     })
   }

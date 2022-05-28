@@ -24,36 +24,21 @@ const ReactJs = () => {
   }
 
   return (
-    <div className='container mx-auto'>
+    <div>
       {
         currentUser.role === "admin" &&
         <CodeAddingForm refetch={refetch} />
       }
-      <div className="search-feild flex mt-5 justify-center">
-        <input type="text" onChange={(e) => setValue(e.target.value)} placeholder="Search here" className="rounded-none input input-bordered w-full max-w-xs" />
-        <button className='btn btn-primary rounded-none'>Search</button>
-      </div>
-      {
-        data.filter((val) => {
-          if (searchValue === "") {
-            return val
-          }
-          else if (val.title.toLowerCase().includes(searchValue.toLowerCase())) {
-            return val
-          }
-        }).map(examp => <div key={examp._id}>
-          <h1 className='text-3xl my-5 text'>{examp.title}</h1>
-          <CodeMirror
-            value={examp.code}
-            height="auto"
-            theme={oneDark}
-            extensions={[javascript({ jsx: true })]}
-            onChange={(value, viewUpdate) => {
+      <h1 className='text-4xl font-bold text-center mt-10 my-5'>React Get Started</h1>
+      <div className="mockup-code p-7">
+        <h1 className='text-left my-3 ml-10 text-2xl'>Create React App With npm</h1>
+        <pre data-prefix="$"><code className='text-green-500'>npx create-react-app my-project</code></pre>
+        <h1 className='text-left my-3 ml-10 text-2xl'>Create React App With yarn</h1>
+        <pre data-prefix="$"><code className='text-green-500'>yarn create react-app my-project</code></pre>
 
-            }}
-          />
-        </div>)
-      }
+        <h1 className='text-left my-3 ml-10 text-2xl'>Install React Router</h1>
+        <pre data-prefix="$"><code className='text-green-500'>npm install react-router-dom</code></pre>
+      </div>
     </div>
   )
 }
@@ -80,14 +65,10 @@ const CodeAddingForm = ({ refetch }) => {
         toast.success('Code Added')
         refetch()
       }
-      else{
-        toast.error('There is a problem')
-      }
     })
   }
   return (
     <>
-
       <form onSubmit={submitCode} className='container mx-auto my-10'>
         <h1 className='text-center text-4xl font-bold my-4'>Add Code Here</h1>
         <input type="text" name='title'
@@ -95,6 +76,29 @@ const CodeAddingForm = ({ refetch }) => {
         <textarea name='code' placeholder="Enter Code Here" className="input input-bordered input-primary w-full max-w-full mt-3 h-64" />
         <button type='submit' className='btn px-5 '>Submit</button>
       </form>
+
+      <Link className='btn bg-md' to='/node'>Installetion</Link>
+      {
+        data.filter((val) => {
+          if (searchValue === "") {
+            return val
+          }
+          else if (val.title.toLowerCase().includes(searchValue.toLowerCase())) {
+            return val
+          }
+        }).map(examp => <div key={examp._id}>
+          <h1 className='text-3xl my-5 text'>{examp.title}</h1>
+          <CodeMirror
+            value={examp.code}
+            height="auto"
+            theme={oneDark}
+            extensions={[javascript({ jsx: true })]}
+            onChange={(value, viewUpdate) => {
+
+            }}
+          />
+        </div>)
+      }
     </>
   )
 }

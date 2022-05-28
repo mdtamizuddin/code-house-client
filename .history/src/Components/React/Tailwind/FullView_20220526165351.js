@@ -9,7 +9,7 @@ import { oneDark } from "@codemirror/theme-one-dark";
 const FullView = () => {
     const location = useLocation()
     const path = location.pathname.split('/')
-    const url = `https://code-house-server.vercel.app/reactComponent/${path[4]}`
+    const url = `https://code-house.vercel.app/reactComponent/${path[4]}`
 
     const { isLoading, data } = useQuery(['react-component'], () =>
         fetch(url).then(res =>

@@ -28,7 +28,7 @@ const AddComponent = ({open , setOpen}) => {
         .then(async (result) => {
             const image = result.data.url
             const myData = { type : "tailwind",compName , code , image , userName , email , avater , dateToday}
-            fetch('https://code-house-server.vercel.app/reactComponent/', {
+            fetch('https://code-house.vercel.app/reactComponent/', {
                 method: 'post',
                 headers :{
                     'content-type': 'application/json',

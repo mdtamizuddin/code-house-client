@@ -8,7 +8,7 @@ const useUser = () => {
     const [currentUser, setcurrentUser] = useState({role : "am-public"})
     const { isLoading } = useQuery(['current-user', user], () => {
         if (user) {
-            fetch(`https://code-house-server.vercel.app/users/${user.email}`,{
+            fetch(`https://code-house.vercel.app/users/${user.email}`,{
                 method: 'get',
                 headers :{
                     auth : localStorage.getItem('accessToken')

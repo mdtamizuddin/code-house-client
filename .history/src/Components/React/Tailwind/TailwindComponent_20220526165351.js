@@ -8,7 +8,7 @@ import AddComponent from './AddComponent'
 
 const TailwindComponent = () => {
   const [open, setOpen] = useState(false)
-  const url = 'https://code-house-server.vercel.app/reactComponent/'
+  const url = 'https://code-house.vercel.app/reactComponent/'
   const [user , loading] = useAuthState(auth)
   const { isLoading, data } = useQuery(['react-components'], () =>
     fetch(url).then(res =>

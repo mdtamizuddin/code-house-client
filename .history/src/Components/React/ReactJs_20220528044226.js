@@ -24,7 +24,7 @@ const ReactJs = () => {
   }
 
   return (
-    <div className='container mx-auto'>
+    <div>
       {
         currentUser.role === "admin" &&
         <CodeAddingForm refetch={refetch} />

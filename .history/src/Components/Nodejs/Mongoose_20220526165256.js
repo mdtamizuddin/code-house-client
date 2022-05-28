@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 import useUser from '../../Hook/useUser'
 import Loading from '../Loading/Loading'
@@ -7,11 +7,11 @@ import { javascript } from "@codemirror/lang-javascript";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { toast } from 'react-toastify';
 
-const NodeJs = () => {
+const Mongoose = () => {
     const currentUser = useUser()
-
-    const { isLoading, data, refetch } = useQuery(['express-codes'], () =>
-        fetch('https://code-house-server.vercel.app/express').then(res =>
+    const [searchValue, setValue] = useState('')
+    const { isLoading, data, refetch } = useQuery(['mongoose-codes'], () =>
+        fetch('https://code-house.vercel.app/mongoose').then(res =>
             res.json()
         )
     )
@@ -19,34 +19,30 @@ const NodeJs = () => {
         return <Loading />
     }
     return (
-        <div>
+        <div className='container mx-auto'>
             <h1 className="text-4xl mt-10 text-center font-bold">
-                Express Js
+                Mongoose
             </h1>
             {
                 currentUser.role === "admin" &&
-                <CodeAddingForm refetch={refetch}/>
+                <CodeAddingForm refetch={refetch} />
             }
+            <div className="search-feild flex justify-center mt-5">
+                <input type="text" onChange={(e) => setValue(e.target.value)} placeholder="Search here" className="rounded-none input input-bordered w-full max-w-xs" />
+                <button className='btn btn-primary rounded-none'>Search</button>
+            </div>
             <div className='mt-10 p-7 mockup-window border bg-base-100'>
-                <h1 className='text-2xl text-primary'> Get Started With Node Js</h1>
-                <h1 className='text-3xl text-neutral mt-5'>Installation </h1>
-                <div className="mockup-code mt-5">
-                    <pre data-prefix="$"><code>npm i express</code></pre>
-                    <pre data-prefix="$"><code>npm i mongodb</code></pre>
-                    <pre data-prefix="$"><code>npm i nodemon</code></pre>
-                    <pre data-prefix="$"><code>npm i cors</code></pre>
-                    <pre data-prefix="$"><code>npm i body-parser</code></pre>
-                    <pre data-prefix="$"><code>npm i dotenv</code></pre>
-                    <pre data-prefix="$"><code>npm i jsonwebtoken</code></pre>
-                    <div className="divider">OR</div>
-                    <pre data-prefix="$"><code>npm i express cors mongodb nodemon body-parser jsonwebtoken dotenv</code></pre>
-                </div>
-                {/* installetion End Here  */}
 
-                {/* express Hello World  */}
                 <div>
                     {
-                        data.map(examp => <div key={examp._id}>
+                        data.filter((val) => {
+                            if (searchValue === "") {
+                                return val
+                            }
+                            else if (val.title.toLowerCase().includes(searchValue.toLowerCase())) {
+                                return val
+                            }
+                        }).map(examp => <div key={examp._id}>
                             <h1 className='text-3xl my-5 text'>{examp.title}</h1>
                             <CodeMirror
                                 value={examp.code}
@@ -66,18 +62,19 @@ const NodeJs = () => {
     )
 }
 
-export default NodeJs
+export default Mongoose
 
 
-const CodeAddingForm = ({refetch}) => {
+const CodeAddingForm = ({ refetch }) => {
     const submitCode = (e) => {
         e.preventDefault()
         const title = e.target.title.value
         const code = e.target.code.value
-        fetch('https://code-house-server.vercel.app/express', {
+        fetch('https://code-house.vercel.app/mongoose', {
             method: 'post',
             headers: {
-                "content-type": "application/json"
+                "content-type": "application/json",
+                auth : localStorage.getItem('accessToken')
             },
             body: JSON.stringify({ title, code })
         }).then(res => {

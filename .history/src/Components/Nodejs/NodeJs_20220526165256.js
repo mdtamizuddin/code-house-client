@@ -11,7 +11,7 @@ const NodeJs = () => {
     const currentUser = useUser()
 
     const { isLoading, data, refetch } = useQuery(['express-codes'], () =>
-        fetch('https://code-house-server.vercel.app/express').then(res =>
+        fetch('https://code-house.vercel.app/express').then(res =>
             res.json()
         )
     )
@@ -74,7 +74,7 @@ const CodeAddingForm = ({refetch}) => {
         e.preventDefault()
         const title = e.target.title.value
         const code = e.target.code.value
-        fetch('https://code-house-server.vercel.app/express', {
+        fetch('https://code-house.vercel.app/express', {
             method: 'post',
             headers: {
                 "content-type": "application/json"

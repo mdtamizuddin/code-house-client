@@ -12,7 +12,7 @@ const FeedBack = () => {
   const navigate = useNavigate()
   const { register, reset , formState: { errors }, handleSubmit } = useForm();
   const onSubmit = (data) => {
-    fetch('https://code-house-server.vercel.app/feedback',{
+    fetch('https://code-house.vercel.app/feedback',{
       method : 'post',
       headers: {
         'content-type': 'application/json',

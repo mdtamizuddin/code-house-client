@@ -24,7 +24,7 @@ const ReactJs = () => {
   }
 
   return (
-    <div className='container mx-auto'>
+    <div>
       {
         currentUser.role === "admin" &&
         <CodeAddingForm refetch={refetch} />
@@ -33,6 +33,7 @@ const ReactJs = () => {
         <input type="text" onChange={(e) => setValue(e.target.value)} placeholder="Search here" className="rounded-none input input-bordered w-full max-w-xs" />
         <button className='btn btn-primary rounded-none'>Search</button>
       </div>
+      <Link className='btn bg-md' to='/node'>Installetion</Link>
       {
         data.filter((val) => {
           if (searchValue === "") {
@@ -79,9 +80,6 @@ const CodeAddingForm = ({ refetch }) => {
         e.target.reset()
         toast.success('Code Added')
         refetch()
-      }
-      else{
-        toast.error('There is a problem')
       }
     })
   }

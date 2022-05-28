@@ -13,7 +13,7 @@ const Social = () => {
     signInWithPopup(auth, provider)
     .then((result) => {
       const user = result.user;
-      fetch(`https://code-house-server.vercel.app/users/${user.email}`, {
+      fetch(`https://code-house.vercel.app/users/${user.email}`, {
         method: "put",
         headers: {
           'content-type': 'application/json'

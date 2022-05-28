@@ -112,7 +112,8 @@ const Navigations = () => {
             <li className='mx-2'><NavLink to='/javascript'>Javascript</NavLink></li>
             <li className='mx-2'><NavLink to='/html'>Html</NavLink></li>
             <li className='mx-2'><NavLink to='/css'>Css</NavLink></li>
-            <li className='mx-2'><NavLink to='/codemirroe'>Code Mirror</NavLink></li>
+            <li className='mx-2'><NavLink to='/feedback'>Feedback</NavLink></li>
+            {/* <li className='mx-2'><NavLink to='/codemirroe'>Code Mirror</NavLink></li> */}
             {user && <li className='mx-2'><NavLink to='/feedback'>FeedBack</NavLink></li>}
             <li className='mx-2'><NavLink to='/blogs'>Blogs</NavLink></li>
         </>
