@@ -15,9 +15,9 @@ function HeaderHome() {
         <>
             <div className="hero min-h-screen bg-base-100">
                 <div className="hero-content flex-col lg:flex-row-reverse">
-                    <img src="https://i.ibb.co/DQbP1S6/Coding-For-Kids-2.jpg" className="max-w-xl rounded-lg shadow-2xl" />
+                    <img src="https://i.ibb.co/m6f0qw7/hero.gif" className="lg:max-w-xl mb-5 lg:mb-0 rounded-lg shadow-2xl" />
                     <div className='lg:pr-10'>
-                        <h1 className="text-6xl text-neutral font-bold">WellCome To Codeing House</h1>
+                        <h1 className="text-6xl text-neutral font-bold">WellCome To Code House</h1>
                         <p className="py-6 text-neutral" >Any fool can write code that a computer can understand. Good programmers write code that humans can understand.</p>
                         <label htmlFor="my-modal-4" className="btn btn-primary">Get Started</label>
                         <input type="checkbox" id="my-modal-4" className="modal-toggle" />

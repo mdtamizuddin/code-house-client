@@ -76,6 +76,7 @@ const Navigations = () => {
     }
     return (
         <>
+        <li><Link to={'/course'}>Courses</Link></li>
             <li tabIndex="1">
                 <Link to='/react'>
                     React Js
@@ -110,8 +111,6 @@ const Navigations = () => {
                 </ul>
             </li>
             <li className='mx-2'><NavLink to='/javascript'>Javascript</NavLink></li>
-            <li className='mx-2'><NavLink to='/html'>Html</NavLink></li>
-            <li className='mx-2'><NavLink to='/css'>Css</NavLink></li>
             <li className='mx-2'><NavLink to='/feedback'>Feedback</NavLink></li>
             {/* <li className='mx-2'><NavLink to='/codemirroe'>Code Mirror</NavLink></li> */}
             {user && <li className='mx-2'><NavLink to='/feedback'>FeedBack</NavLink></li>}

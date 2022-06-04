@@ -20,6 +20,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Javascript from './Components/Javascript/Javascript';
 import Mongoose from './Components/Nodejs/Mongoose';
 import CodemirrorView from './Components/Codemirror/Codemirror';
+import Course from './Components/Courses/Course';
+import MailerC from './Components/Courses/MailerC';
 function App() {
   const [user, loading] = useAuthState(auth)
   if (loading) {
@@ -30,6 +32,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/course' element={<Course />} />
+        <Route path='/course/node-mailer' element={<MailerC />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='*' element={<h1 className='text-5xl text-center mt-20'>On Development ....</h1>} />
