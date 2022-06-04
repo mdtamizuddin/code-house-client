@@ -22,6 +22,7 @@ import Mongoose from './Components/Nodejs/Mongoose';
 import CodemirrorView from './Components/Codemirror/Codemirror';
 import Course from './Components/Courses/Course';
 import MailerC from './Components/Courses/MailerC';
+import MongooseC from './Components/Courses/Mongoose';
 function App() {
   const [user, loading] = useAuthState(auth)
   if (loading) {
@@ -34,6 +35,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/course' element={<Course />} />
         <Route path='/course/node-mailer' element={<MailerC />} />
+        <Route path='/course/mongoose' element={<MongooseC />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='*' element={<h1 className='text-5xl text-center mt-20'>On Development ....</h1>} />
