@@ -1,6 +1,7 @@
 import React from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import useDate from '../../../Hook/useDate';
 import auth from '../../Firebase/firebase.init';
 import Loading from '../../Loading/Loading';
@@ -8,7 +9,7 @@ import Loading from '../../Loading/Loading';
 const AddComponent = ({open , setOpen}) => {
     const [user, loading] = useAuthState(auth)
     const[dateToday] = useDate()
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit , reset } = useForm();
     const onSubmit = data => {
         const compName = data.name 
         const code = data.code
@@ -37,7 +38,11 @@ const AddComponent = ({open , setOpen}) => {
                 body: JSON.stringify(myData)
             })
             .then(res => res.json())
-            .then(json => console.log(json))
+            .then(json => {
+                setOpen(false)
+                toast.success('New Component Added')
+                reset()
+            })
         }
         )       
     }
