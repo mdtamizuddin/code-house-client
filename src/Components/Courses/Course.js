@@ -6,9 +6,8 @@ const Course = () => {
     return (
         <div style={{ backgroundSize: 'cover', backgroundPosition: 'center', backgroundImage: `url(${''})` }} className='container mx-auto '>
             <div className='flex h-screen w-full flex justify-center items-center'>
-                <label htmlFor="my-modal-4" className="btn btn-secondary">Choose Topic</label>
-                <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-                <label htmlFor="my-modal-4" className="modal cursor-pointer">
+              
+                <label className="w-lg cursor-pointer">
                     <label className="modal-box relative" htmlFor="">
                         <h1 className='text-3xl'>Choose Your Topic</h1>
                         <ul className='mt-5'>
@@ -24,6 +23,7 @@ const Course = () => {
                             <li>
                                 <Link className='btn bg-secondary border-none text-white w-full mt-3' to='#'>React</Link>
                             </li>
+                            
                         </ul>
                     </label>
                 </label>
